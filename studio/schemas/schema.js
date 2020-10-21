@@ -7,15 +7,39 @@ import schemaTypes from 'all:part:@sanity/base/schema-type'
 // document schemas
 import author from './documents/author'
 import category from './documents/category'
+import navigation from './documents/navigation'
+import page from './documents/page'
 import post from './documents/post'
+import route from './documents/route'
 import siteSettings from './documents/siteSettings'
 
 // Object types
 import bodyPortableText from './objects/bodyPortableText'
 import bioPortableText from './objects/bioPortableText'
+import content from './objects/content'
 import excerptPortableText from './objects/excerptPortableText'
 import mainImage from './objects/mainImage'
+import meta from './objects/meta'
+import navSection from './objects/navSection'
+import navLink from './objects/navLink'
 import authorReference from './objects/authorReference'
+
+// new docs
+import accessibleImage from './documents/accessibleImage';
+import accessibleVideo from './documents/accessibleVideo';
+import pageGallery from './documents/pageGallery';
+import pageAbout from './documents/pageAbout';
+
+// new objects
+import captionedImage from './objects/captionedImage';
+import captionedVideo from './objects/captionedVideo';
+import mediaGallery from './objects/mediaGallery';
+import seo from './objects/seo'
+import pdfFile from './objects/pdfFile'
+import webform from './documents/webform'
+import form from './objects/form'
+import slideshow from './objects/slideshow'
+import { instagram, videoEmbed } from './objects/embeds'
 
 // Then we give our schema to the builder and provide the result to Sanity
 export default createSchema({
@@ -30,12 +54,36 @@ export default createSchema({
     post,
     category,
     author,
+    page,
+    route,
+    navigation,
     mainImage,
     authorReference,
     bodyPortableText,
     bioPortableText,
-    excerptPortableText
+    excerptPortableText,
+    meta,
+    content,
+    navSection,
+    navLink,
 
+    // new Documents
+    accessibleImage,
+    accessibleVideo,
+    pageGallery,
+    pageAbout,
+    webform,
+
+  // new Objects
+  captionedImage,
+  captionedVideo,
+  mediaGallery,
+  pdfFile,
+  form,
+  seo,
+  slideshow,
+    instagram,
+    videoEmbed
     // When added to this list, object types can be used as
     // { type: 'typename' } in other document schemas
   ])

@@ -1,3 +1,4 @@
+import {MdPictureAsPdf as PDFIcon} from 'react-icons/md'
 export default {
   name: 'bodyPortableText',
   type: 'array',
@@ -48,6 +49,26 @@ export default {
     {
       type: 'mainImage',
       options: {hotspot: true}
-    }
+    },
+     { type: 'instagram' },
+    { type: 'videoEmbed' },
+    {
+      type: 'slideshow'
+    },
+{
+            name: 'fileDownload',
+            type: 'object',
+            title: 'File Download',
+            blockEditor: {
+              icon: PDFIcon
+            },
+            fields: [
+              {
+                title: 'File',
+                name: 'file',
+                type: 'file'
+              }
+            ]
+          }
   ]
 }

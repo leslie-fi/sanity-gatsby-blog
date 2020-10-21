@@ -31,6 +31,12 @@ export default {
       description: 'Publish an author and set a reference to them here.',
       title: 'Author',
       to: [{type: 'author'}]
+    },
+    {
+      title: 'Developer',
+      name: 'developer',
+      description: 'Developer Name',
+      type: 'string'
     }
   ]
 }

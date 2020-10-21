@@ -6,9 +6,14 @@ import {
   MdLocalOffer
 } from "react-icons/md"
 import IframePreview from '../previews/IframePreview'
+import { FaFile } from "react-icons/fi";
+import BLOG from './blogStructure'
+import EditIcon from "part:@sanity/base/edit-icon";
+import EyeIcon from "part:@sanity/base/eye-icon";
+import SeoPreview from "../../components/previews/seo/SeoPreviews";
 
 // Web preview configuration
-const remoteURL = 'https://sanity-gatsby-blog-web-k7pxr8rt.netlify.app'
+const remoteURL = 'https://yogawithsusanturis.netlify.app'
 const localURL = 'http://localhost:8000'
 const previewURL =
   window.location.hostname === 'localhost' ? localURL : remoteURL
@@ -31,7 +36,7 @@ export const getDefaultDocumentNode = props => {
         .options({ previewURL })
     ])
   }
-  return S.document().views([S.view.form()])
+    return S.document().views([S.view.form()])
 }
 
 /**
@@ -56,29 +61,113 @@ export default () =>
             .schemaType('siteSettings')
             .documentId('siteSettings')
         ),
-      S.divider(),
-      S.listItem()
-        .title('Blog posts')
+        S.divider(),
+        S.listItem()
+        .title('New Pages')
+        .schemaType('page')
+        .child(S.documentTypeList('page')
+        .title('Pages')
+        .child((documentId) =>
+        S.document()
+          .documentId(documentId)
+          .schemaType('page')
+          .views([S.view.form(), IframePreview()])
+      )
+  ),
+        S.listItem()
+        .title('Pages')
         .icon(MdDescription)
-        .schemaType('post')
-        .child(S.documentTypeList('post').title('Blog posts')),
-      S.listItem()
-        .title('Authors')
-        .icon(MdPerson)
-        .schemaType('author')
-        .child(S.documentTypeList('author').title('Authors')),
-      S.listItem()
-        .title('Categories')
-        .icon(MdLocalOffer)
-        .schemaType('category')
-        .child(S.documentTypeList('category').title('Categories')),
+        .child(
+          S.list()
+          .title('Pages')
+          .items([
+            
+              // About Page
+              S.listItem()
+                .title('About Page')
+                // This automatically gives it properties from the project type
+                .schemaType('pageAbout')
+                .child(
+                  S.editor()
+                    .schemaType('pageAbout')
+                    .documentId('pageAbout')
+                    .views([
+                      S.view.form().icon(EditIcon),
+                      S.view
+                        .component(IframePreview)
+                        .icon(EyeIcon)
+                        .title("Web Preview"),
+                      S.view
+                      	.component(SeoPreview)
+                      	.icon(EyeIcon)
+                      	.title('SEO Preview'),
+                    ])
+                )
+                .icon(FaFile),
+
+            S.listItem()
+            .title('Gallery Page')
+            // This automatically gives it properties from the project type
+            .schemaType('pageGallery')
+            .child(
+              S.editor()
+              .id('galleryPage')
+                .schemaType('pageGallery')
+                .documentId('pageGallery')
+                .views([
+                  S.view.form().icon(EditIcon),
+                  S.view
+                    .component(IframePreview)
+                    .icon(EyeIcon)
+                    .title("Web Preview"),
+                  S.view
+                    .component(SeoPreview)
+                    .icon(EyeIcon)
+                    .title("SEO Preview"),
+                ])
+            )
+            .icon(FaFile),
+            
+          ])
+        ),
+        S.listItem()
+        .title('Navigation')
+        .child(
+          S.editor()
+          .schemaType('navigation')
+          .id('navigation')
+          .documentId('navigation')
+        ),
+        S.listItem()
+        .title('Routes')
+        .schemaType('route')
+        .child(
+          S.documentTypeList('route').title('Routes')
+        ),
+        
+      S.divider(),
+      BLOG,
+      // S.listItem()
+      //   .title('Blog posts')
+      //   .icon(MdDescription)
+      //   .schemaType('post')
+      //   .child(S.documentTypeList('post').title('Blog posts')),
+      // S.listItem()
+      //   .title('Authors')
+      //   .icon(MdPerson)
+      //   .schemaType('author')
+      //   .child(S.documentTypeList('author').title('Authors')),
+      // S.listItem()
+      //   .title('Categories')
+      //   .icon(MdLocalOffer)
+      //   .schemaType('category')
+      //   .child(S.documentTypeList('category').title('Categories')),
       // `S.documentTypeListItems()` returns an array of all the document types
       // defined in schema.js. We filter out those that we have
       // defined the structure above.
       ...S.documentTypeListItems().filter(
         listItem =>
-          !['category', 'author', 'post', 'siteSettings'].includes(
+          !['category', 'author', 'page','post', 'siteSettings', 'navigation', 'route', 'pageAbout', 'pageGallery'].includes(
             listItem.getId()
-          )
-      )
+          ))
     ])
